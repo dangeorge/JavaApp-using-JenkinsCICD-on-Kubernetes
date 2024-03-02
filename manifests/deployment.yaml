@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: java-app
-        image: dangeorge23/java-app:build-57
+        image: dangeorge23/java-app:build-58
         ports:
         - containerPort: 8080
