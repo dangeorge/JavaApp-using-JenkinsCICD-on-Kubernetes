@@ -60,7 +60,7 @@ pipeline {
                 sed -i "/java-app:build-/s/build-.*/build-${BUILD_NUMBER}/" manifests/deployment.yaml
                 git add manifests/deployment.yaml
                 git commit -m "Updated build number to ${BUILD_NUMBER} in manifests/deployment.yaml file"
-                git push
+                git push --set-upstream origin main
                 '''
                 }
             }
