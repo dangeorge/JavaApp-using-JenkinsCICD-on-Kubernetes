@@ -2,16 +2,13 @@ pipeline {
     agent any
     environment {
         DOCKER_REPO_NAME = "dangeorge23/java-app"
-        GITHUB_USERNAME = "dangeorge"
-        GITHUB_REPO = "JavaApp-using-JenkinsCICD-on-Kubernetes"
-        GITHUB_EMAIL = "dangeorge13@gmail.com"
     }
 
     stages {
         stage('Git Clone') {
             steps {
                 echo 'Cloning Git repository'
-                git branch: 'main', url: 'https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git'
+                git branch: 'main', url: 'https://github.com/dangeorge/JavaApp-using-JenkinsCICD-on-Kubernetes.git'
             }
         }
         stage('Build Jar file') {
@@ -57,9 +54,9 @@ pipeline {
                 echo 'Updating deployment file with the build number'
                 withCredentials([string(credentialsId: 'githublogin', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                git config user.email "${GITHUB_EMAIL}"
-                git config user.name "${GITHUB_USERNAME}"
-                git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git
+                git config user.email "dangeorge13@gmail.com"
+                git config user.name "dangeorge"
+                git remote set-url origin https://dangeorge:${GITHUB_TOKEN}@github.com/dangeorge/JavaApp-using-JenkinsCICD-on-Kubernetes.git
                 sed -i "/java-app:build-/s/build-.*/build-${BUILD_NUMBER}/" manifests/deployment.yaml
                 git add manifests/deployment.yaml
                 git commit -m "Updated build number to ${BUILD_NUMBER} in manifests/deployment.yaml file"
